@@ -11,31 +11,31 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#070b14;--surface:#0f1726;--surface-2:#131d2f;--line:#24344a;--text:#eef4ff;--muted:#94a3b8;
-  --teal:#5ef0dd;--teal-2:#22d3ee;--yellow:#ffcb67;--yellow-2:#f59e0b;--blue:#93b8ff;--violet:#a78bfa;
+  --bg:#060a18;--surface:#0e1d35;--surface-2:#132544;--line:#1f3659;--text:#eef2ff;--muted:#8fa1c0;
+  --teal:#1ef2c6;--teal-2:#22d3ee;--yellow:#ffb84d;--yellow-2:#ff8a3d;--blue:#7aa8ff;--violet:#8b7cff;--violet-2:#a78bfa;
   --mono:"DM Mono",monospace;--sans:Manrope,sans-serif;--serif:"Playfair Display",serif;
-  --radius:14px;--shadow:0 24px 70px #0006;
+  --radius:14px;--shadow:0 24px 70px #0008;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth; scroll-padding-top:78px}
 body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-::selection{background:#5ef0dd33}
+::selection{background:#1ef2c633}
 
 /* progress bar */
-#progress{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--teal),var(--violet),var(--yellow));z-index:100;transition:width .08s linear}
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--teal),var(--violet),var(--yellow),var(--blue));z-index:100;transition:width .08s linear}
 
 /* cursor aura */
 .cursor-aura{position:fixed;width:520px;height:520px;border-radius:50%;pointer-events:none;z-index:0;
-  background:radial-gradient(circle at center,#5ef0dd14 0,transparent 62%);transform:translate(-50%,-50%);opacity:0;transition:opacity .35s;will-change:left,top}
+  background:radial-gradient(circle at center,#1ef2c612 0,transparent 62%);transform:translate(-50%,-50%);opacity:0;transition:opacity .35s;will-change:left,top}
 @media(pointer:fine){ .cursor-aura{opacity:1} }
 
 /* animated mesh background */
 .bg-mesh{position:fixed;inset:0;z-index:-3;overflow:hidden;background:var(--bg)}
-.orb{position:absolute;border-radius:50%;filter:blur(40px);mix-blend:screen;opacity:.55;animation:drift 18s ease-in-out infinite}
-.orb-1{width:720px;height:720px;background:radial-gradient(circle at 30% 30%,#1e3a5f 0,#0f766e 48%,transparent 71%);top:-220px;right:-160px;animation-duration:22s}
-.orb-2{width:620px;height:620px;background:radial-gradient(circle at 50% 50%,#1e1b4b 0,#312e81 40%,#06b6d433 68%,transparent 75%);bottom:-180px;left:-140px;animation-delay:-6s}
-.orb-3{width:540px;height:540px;background:radial-gradient(circle at 50% 50%,#422006 0,#7c2d1299 44%,transparent 74%);top:38%;left:42%;animation-duration:26s;animation-delay:-11s;opacity:.32}
+.orb{position:absolute;border-radius:50%;filter:blur(44px);mix-blend:screen;opacity:.58;animation:drift 18s ease-in-out infinite}
+.orb-1{width:760px;height:760px;background:radial-gradient(circle at 30% 30%,#0ea5a0 0,#1e3a6a 42%,transparent 71%);top:-240px;right:-180px;animation-duration:22s}
+.orb-2{width:660px;height:660px;background:radial-gradient(circle at 50% 50%,#3b2dbf 0,#1e1b6a 38%,#0ea5e955 68%,transparent 76%);bottom:-180px;left:-160px;animation-delay:-6s}
+.orb-3{width:560px;height:560px;background:radial-gradient(circle at 50% 50%,#ff8a3d 0,#7c2d12aa 40%,transparent 74%);top:38%;left:42%;animation-duration:26s;animation-delay:-11s;opacity:.28}
 @keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(18px,-18px) scale(1.04)}66%{transform:translate(-12px,14px) scale(.98)}}
 .grid-overlay{position:fixed;inset:0;z-index:-2;opacity:.18;pointer-events:none;
   background-image:linear-gradient(#2a3a55 1px,transparent 1px),linear-gradient(90deg,#2a3a55 1px,transparent 1px);
@@ -69,7 +69,7 @@ nav{position:sticky;top:0;z-index:20;border-bottom:1px solid #24344a99;backgroun
 .eyebrow-row{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:18px}
 .mini-pill{font:500 10px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);border:1px solid #24344a;background:#0f1726cc;padding:5px 9px;border-radius:999px}
 .hero h1{font:600 clamp(3rem,6.6vw,5.9rem)/.96 var(--serif);letter-spacing:-.055em;margin:10px 0 16px;max-width:760px}
-.hero h1 em{color:transparent;background:linear-gradient(90deg,var(--teal) 0,var(--teal-2) 38%,var(--violet) 78%,var(--yellow) 100%);-webkit-background-clip:text;background-clip:text;font-weight:600}
+.hero h1 em{color:transparent;background:linear-gradient(90deg,var(--teal) 0,var(--teal-2) 32%,var(--violet) 68%,var(--yellow) 100%);-webkit-background-clip:text;background-clip:text;font-weight:600;filter:drop-shadow(0 0 18px #1ef2c622)}
 .hero h1 .line{display:block;overflow:hidden}
 .hero h1 .line span{display:inline-block;transform:translateY(110%);animation:rise .9s cubic-bezier(.16,1,.3,1) forwards}
 .hero h1 .line:nth-child(2) span{animation-delay:.1s}
@@ -82,7 +82,7 @@ nav{position:sticky;top:0;z-index:20;border-bottom:1px solid #24344a99;backgroun
 .button::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#5ef0dd14,transparent);opacity:0;transition:.25s}
 .button:hover{transform:translateY(-2px);border-color:#5ef0dd66;box-shadow:0 10px 30px #0004}
 .button:hover::before{opacity:1}
-.button.primary{background:linear-gradient(180deg,#5ef0dd,#22d3ee);border-color:transparent;color:#08201f;font-weight:600;box-shadow:0 10px 30px #22d3ee33,0 0 0 1px #ffffff18 inset}
+.button.primary{background:linear-gradient(180deg,#1ef2c6,#08c4ea 55%,#7c5cff);border-color:transparent;color:#031412;font-weight:700;box-shadow:0 10px 30px #1ef2c633,0 0 0 1px #ffffff22 inset}
 .button.primary:hover{filter:brightness(1.05);transform:translateY(-2px) scale(1.01)}
 .button.ghost{background:transparent}
 .hero-meta{display:flex;gap:22px;margin-top:40px;color:var(--muted);font:11px var(--mono);flex-wrap:wrap}
@@ -107,12 +107,12 @@ nav{position:sticky;top:0;z-index:20;border-bottom:1px solid #24344a99;backgroun
 .live::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--yellow);box-shadow:0 0 12px var(--yellow);animation:blink 1.2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.45}}
 .tabs{display:flex;gap:8px;margin:16px 0 12px}
-.tab{font:500 10px var(--mono);color:var(--muted);border:1px solid #24344a;padding:5px 10px;border-radius:999px;background:#0f1726}
-.tab.active{color:var(--teal);border-color:#5ef0dd55;background:#0e1e28}
-.chart{width:100%;height:auto;display:block;margin:6px 0 14px}
-.chart .grid{stroke:#24344a;stroke-width:1;opacity:.9}
-.chart .loss{fill:none;stroke:url(#grad);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:640;stroke-dashoffset:640;transition:stroke-dashoffset 1.8s cubic-bezier(.16,1,.3,1)}
-.chart.animate .loss{stroke-dashoffset:0}
+.tab{font:500 10px var(--mono);color:var(--muted);border:1px solid #1f3659;padding:5px 12px;border-radius:999px;background:#0d1b31;cursor:pointer;transition:.18s}
+.tab:hover{border-color:#1ef2c655;color:var(--text)}
+.tab.active{color:#031412;border-color:transparent;background:linear-gradient(180deg,#1ef2c6,#08c4ea);font-weight:600;box-shadow:0 4px 14px #1ef2c644}
+.tab:focus-visible{outline:2px solid var(--teal);outline-offset:2px}
+.chart{width:100%;height:auto;display:block;margin:6px 0 8px}
+.chart-wrap canvas.chart{background:linear-gradient(180deg,#0a1426 0,#0d1b31 100%);border:1px solid #1f3659;border-radius:10px}
 .model-stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #24344a;padding-top:14px;gap:10px}
 .model-stats b{display:block;color:var(--teal);font:600 17px var(--mono)}
 .model-stats span{font:10px var(--mono);color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
@@ -301,24 +301,16 @@ footer{padding:84px 0 30px;background:linear-gradient(180deg,#0b1320 0,#080d16 1
           <b><span style="display:flex;gap:6px"><i class="dot"></i><i class="dot"></i><i class="dot"></i></span> training_log.csv</b>
           <span class="live">epoch 40 / 40</span>
         </div>
-        <div class="tabs"><span class="tab active">loss</span><span class="tab">accuracy</span><span class="tab">lr schedule</span></div>
-        <svg class="chart" viewBox="0 0 400 180" role="img" aria-label="Loss descending over training epochs">
-          <defs><linearGradient id="grad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#5ef0dd"/><stop offset="55%" stop-color="#93b8ff"/><stop offset="100%" stop-color="#ffcb67"/></linearGradient></defs>
-          <g class="grid" opacity=".9">
-            <path d="M0 145H400M0 95H400M0 45H400"/><path d="M0 0V155M100 0V155M200 0V155M300 0V155M400 0V155"/>
-          </g>
-          <path id="lossPath" class="loss" d="M0 144C25 134 35 74 72 76S113 115 145 90s28-53 63-60 46 23 81 2 52-12 111-22"/>
-          <g fill="#ffcb67"><circle cx="0" cy="144" r="3.5"/><circle cx="72" cy="76" r="3.5"/><circle cx="145" cy="90" r="3.5"/><circle cx="208" cy="30" r="3.5"/></g>
-          <circle cx="400" cy="10" r="6" fill="#5ef0dd" style="filter:drop-shadow(0 0 10px #5ef0dd)"/>
-          <g font-family="DM Mono, monospace" font-size="8" fill="#6b7e96">
-            <text x="0" y="168">0</text><text x="96" y="168">10</text><text x="194" y="168">20</text><text x="294" y="168">30</text><text x="384" y="168">40</text>
-          </g>
-        </svg>
-        <div class="mini-legend"><span><i style="background:var(--teal)"></i>train loss</span><span><i style="background:var(--yellow)"></i>checkpoints</span><span style="margin-left:auto;color:var(--muted);font:10px var(--mono)">↓ 94% improvement</span></div>
+        <div class="tabs" role="tablist" aria-label="Training metrics"><button class="tab active" role="tab" aria-selected="true" data-tab="loss">loss</button><button class="tab" role="tab" aria-selected="false" data-tab="acc">accuracy</button><button class="tab" role="tab" aria-selected="false" data-tab="lr">lr schedule</button></div>
+        <div class="chart-wrap" style="position:relative">
+          <canvas id="trainingChart" class="chart" width="400" height="180" role="img" aria-label="Training metrics over epochs" style="width:100%;height:auto;display:block;margin:6px 0 8px;border-radius:8px"></canvas>
+          <div id="chartTooltip" style="position:absolute;pointer-events:none;opacity:0;transform:translate(-50%,-100%);background:#0b1222;border:1px solid #1f3659;color:#eef2ff;font:11px var(--mono);padding:6px 8px;border-radius:8px;box-shadow:0 8px 24px #0006;white-space:nowrap;transition:opacity .12s;z-index:2"></div>
+        </div>
+        <div class="mini-legend" id="miniLegend"><span><i style="background:var(--teal)"></i><span id="legendLabel">train loss</span></span><span><i style="background:var(--yellow)"></i>checkpoints</span><span style="margin-left:auto;color:var(--muted);font:10px var(--mono)" id="legendMeta">↓ 94% improvement</span></div>
         <div class="model-stats">
-          <div><b data-count="0.084">0.084</b><span>final loss</span></div>
-          <div><b data-count="40">40</b><span>epochs</span></div>
-          <div><b>↑ learning</b><span>momentum</span></div>
+          <div><b id="statA">0.084</b><span id="statALabel">final loss</span></div>
+          <div><b id="statB">40</b><span id="statBLabel">epochs</span></div>
+          <div><b id="statC">↑ 94%</b><span id="statCLabel">improvement</span></div>
         </div>
       </aside>
     </div>
@@ -450,17 +442,157 @@ if(card) card.addEventListener('mouseleave',()=>{card.style.transform='';});
 
 // reveal on scroll
 const obs=new IntersectionObserver(es=>{
-  es.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('in');
-      if(e.target.querySelector('.chart')) e.target.querySelector('.chart').classList.add('animate');
-      if(e.target.classList.contains('chart')) e.target.classList.add('animate');
+  es.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('in'); });
+},{threshold:.16});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// ---- interactive canvas graph ----
+const canvas=document.getElementById('trainingChart');
+const tooltip=document.getElementById('chartTooltip');
+const legendLabel=document.getElementById('legendLabel');
+const legendMeta=document.getElementById('legendMeta');
+const statA=document.getElementById('statA'), statALabel=document.getElementById('statALabel');
+const statB=document.getElementById('statB'), statBLabel=document.getElementById('statBLabel');
+const statC=document.getElementById('statC'), statCLabel=document.getElementById('statCLabel');
+const tabs=[...document.querySelectorAll('.tab')];
+let activeTab='loss';
+let animRAF=null, progressAnim=0;
+
+const datasets={
+  loss:{ label:'train loss', color:'#1ef2c6', color2:'#7aa8ff', yLabel:'loss', meta:'↓ 94% improvement', stats:['0.084','40','↑ 94%'], statLabels:['final loss','epochs','improvement'], data:[2.30,1.35,0.92,0.71,0.58,0.45,0.36,0.29,0.24,0.20,0.17,0.15,0.13,0.11,0.10,0.095,0.090,0.087,0.085,0.084] },
+  acc:{ label:'accuracy', color:'#8b7cff', color2:'#1ef2c6', yLabel:'acc', meta:'↑ 96.2% accuracy', stats:['96.2%','40','+51%'], statLabels:['final acc','epochs','gain'], data:[0.45,0.62,0.71,0.78,0.83,0.86,0.89,0.91,0.925,0.935,0.942,0.948,0.952,0.956,0.958,0.960,0.961,0.962,0.962,0.962] },
+  lr:{ label:'learning rate', color:'#ffb84d', color2:'#ff8a3d', yLabel:'lr', meta:'cosine decay', stats:['0.0008','40','cosine'], statLabels:['final lr','epochs','schedule'], data:[0.0100,0.0099,0.0097,0.0094,0.0090,0.0085,0.0079,0.0072,0.0065,0.0057,0.0050,0.0042,0.0035,0.0028,0.0021,0.0016,0.0012,0.0010,0.00085,0.00080] }
+};
+
+function resizeCanvas(){
+  const dpr=window.devicePixelRatio||1;
+  const rect=canvas.getBoundingClientRect();
+  canvas.width=rect.width*dpr; canvas.height=rect.height*dpr;
+  const ctx=canvas.getContext('2d');
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  return rect;
+}
+function drawChart(tab, t){
+  const rect=canvas.getBoundingClientRect();
+  const W=rect.width, H=rect.height;
+  const ctx=canvas.getContext('2d');
+  ctx.clearRect(0,0,W,H);
+  // padding
+  const pad={l:36,r:14,t:12,b:22};
+  const plotW=W-pad.l-pad.r, plotH=H-pad.t-pad.b;
+  const ds=datasets[tab];
+  const data=ds.data;
+  const n=data.length;
+  let min=Math.min(...data), max=Math.max(...data);
+  if(tab==='loss'){ min=Math.min(min,0); max=Math.max(max,2.4); }
+  if(tab==='acc'){ min=0.4; max=1.0; }
+  if(tab==='lr'){ min=0; max=0.011; }
+  const range=max-min||1;
+  function x(i){ return pad.l + (i/(n-1))*plotW; }
+  function y(v){ return pad.t + (1-(v-min)/range)*plotH; }
+
+  // grid
+  ctx.strokeStyle='#1f3659'; ctx.lineWidth=1; ctx.globalAlpha=0.9;
+  for(let i=0;i<=4;i++){
+    const yy=pad.t + (i/4)*plotH;
+    ctx.beginPath(); ctx.moveTo(pad.l, yy); ctx.lineTo(W-pad.r, yy); ctx.stroke();
+    ctx.fillStyle='#6b7e96'; ctx.font='10px "DM Mono", monospace'; ctx.globalAlpha=1;
+    const val=(max - (i/4)*range);
+    let txt= val.toFixed(tab==='acc'?2: tab==='lr'?4:2);
+    if(tab==='acc') txt=(val*100).toFixed(0)+'%';
+    if(tab==='lr') txt=val.toFixed(3);
+    ctx.fillText(txt, 4, yy+3);
+    ctx.globalAlpha=0.9;
+  }
+  for(let i=0;i<n;i+=5){
+    const xx=x(i);
+    ctx.beginPath(); ctx.moveTo(xx, pad.t); ctx.lineTo(xx, H-pad.b); ctx.stroke();
+  }
+  ctx.globalAlpha=1;
+  // x labels
+  ctx.fillStyle='#6b7e96'; ctx.font='10px "DM Mono", monospace';
+  ['0','10','20','30','40'].forEach((lab,idx)=>{
+    const xx=pad.l + (idx/4)*plotW;
+    ctx.fillText(lab, xx-6, H-6);
+  });
+  // line gradient
+  const grad=ctx.createLinearGradient(pad.l,0,W-pad.r,0);
+  grad.addColorStop(0, ds.color); grad.addColorStop(1, ds.color2);
+  // animated progress
+  const total=n-1;
+  const progIdx=Math.floor(t*total);
+  const frac=t*total - progIdx;
+  ctx.strokeStyle=grad; ctx.lineWidth=2.8; ctx.lineJoin='round'; ctx.lineCap='round';
+  ctx.beginPath();
+  for(let i=0;i<=progIdx;i++){
+    const xx=x(i), yy=y(data[i]);
+    if(i===0) ctx.moveTo(xx,yy); else ctx.lineTo(xx,yy);
+  }
+  if(progIdx < total && frac>0){
+    const x0=x(progIdx), y0=y(data[progIdx]);
+    const x1=x(progIdx+1), y1=y(data[progIdx+1]);
+    ctx.lineTo(x0 + (x1-x0)*frac, y0 + (y1-y0)*frac);
+  }
+  ctx.stroke();
+  // glow
+  ctx.shadowColor=ds.color; ctx.shadowBlur=10; ctx.stroke(); ctx.shadowBlur=0;
+  // points for checkpoints
+  const checkpoints=[0,4,9,14,19];
+  checkpoints.forEach(i=>{
+    if(i/total <= t){
+      const xx=x(i), yy=y(data[i]);
+      ctx.fillStyle= i===19? ds.color : '#ffb84d';
+      ctx.beginPath(); ctx.arc(xx,yy, i===19?5:3.2,0,Math.PI*2); ctx.fill();
+      if(i===19){ ctx.strokeStyle='#fff'; ctx.lineWidth=1.2; ctx.stroke(); }
     }
   });
-},{threshold:.16});
-document.querySelectorAll('.reveal,.chart').forEach(el=>obs.observe(el));
-// animate chart immediately if in view
-setTimeout(()=>{document.querySelector('.chart')?.classList.add('animate')},420);
+  // store for tooltip
+  canvas._points=data.map((v,i)=>({x:x(i), y:y(v), v, i}));
+  canvas._yRange={min,max}; canvas._tab=tab;
+}
+function animateTo(tab){
+  activeTab=tab;
+  tabs.forEach(b=>{ const on=b.dataset.tab===tab; b.classList.toggle('active', on); b.setAttribute('aria-selected', on); });
+  const ds=datasets[tab];
+  legendLabel.textContent=ds.label;
+  legendMeta.textContent=ds.meta;
+  statA.textContent=ds.stats[0]; statALabel.textContent=ds.statLabels[0];
+  statB.textContent=ds.stats[1]; statBLabel.textContent=ds.statLabels[1];
+  statC.textContent=ds.stats[2]; statCLabel.textContent=ds.statLabels[2];
+  if(animRAF) cancelAnimationFrame(animRAF);
+  let start=null;
+  function step(ts){
+    if(!start) start=ts;
+    const dur=900;
+    const t=Math.min(1, (ts-start)/dur);
+    const eased=1-Math.pow(1-t,3);
+    drawChart(tab, eased);
+    if(t<1) animRAF=requestAnimationFrame(step);
+  }
+  animRAF=requestAnimationFrame(step);
+}
+tabs.forEach(b=> b.addEventListener('click', ()=> animateTo(b.dataset.tab)));
+
+// tooltip
+canvas.addEventListener('mousemove', e=>{
+  const rect=canvas.getBoundingClientRect();
+  const mx=e.clientX-rect.left, my=e.clientY-rect.top;
+  const pts=canvas._points||[];
+  let best=null, bestDist=1e9;
+  pts.forEach(p=>{ const d=Math.hypot(p.x-mx,p.y-my); if(d<bestDist){bestDist=d; best=p;} });
+  if(best && bestDist<28){
+    const ds=datasets[canvas._tab];
+    let vtxt= best.v.toFixed(3);
+    if(canvas._tab==='acc') vtxt=(best.v*100).toFixed(1)+'%';
+    if(canvas._tab==='lr') vtxt=best.v.toFixed(4);
+    tooltip.textContent=`epoch ${best.i} · ${ds.yLabel} ${vtxt}`;
+    tooltip.style.left=best.x+'px'; tooltip.style.top=(best.y-10)+'px';
+    tooltip.style.opacity='1';
+  } else tooltip.style.opacity='0';
+});
+canvas.addEventListener('mouseleave', ()=> tooltip.style.opacity='0');
+window.addEventListener('resize', ()=> drawChart(activeTab,1));
+setTimeout(()=>{ resizeCanvas(); animateTo('loss'); },80);
 
 // copy email
 const email='your.email@example.com';

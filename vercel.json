@@ -1,0 +1,18 @@
+{
+  "cleanUrls": true,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=()" }
+      ]
+    }
+  ],
+  "redirects": [
+    { "source": "/(.*)", "has": [{ "type": "host", "value": "www.krishnasharma.xyz" }], "destination": "https://krishnasharma.xyz/$1", "permanent": true },
+    { "source": "/(.*)", "has": [{ "type": "host", "value": "krishna-portfolio-nine-rose.vercel.app" }], "destination": "https://krishnasharma.xyz/$1", "permanent": true },
+    { "source": "/(.*)", "has": [{ "type": "host", "value": "krishna-portfolio-nine-rose-two.vercel.app" }], "destination": "https://krishnasharma.xyz/$1", "permanent": true }
+  ]
+}

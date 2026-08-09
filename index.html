@@ -240,6 +240,60 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
   .fact{grid-template-columns:1fr;gap:4px}.fact dd{text-align:left}
   .footer-bottom{display:block}
 }
+/* ===== FANCY ML CODE — top of home ===== */
+.ml-code-bar{padding:18px 0 0;position:relative;z-index:1}
+.ml-code-shell{width:min(1140px,calc(100% - 48px));margin:0 auto}
+.code-window{position:relative;border:1px solid #1A1A1A;background:linear-gradient(180deg,#0B0B0B 0,#070707 100%);border-radius:14px;overflow:hidden;box-shadow:0 18px 50px #000A, 0 0 0 1px #111, 0 0 30px #39FF140D}
+.code-window::before{content:"";position:absolute;inset:-1px;border-radius:14px;padding:1px;background:linear-gradient(130deg,#39FF1466,#00FFFF66,#BC13FE55);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.55;pointer-events:none}
+.code-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border-bottom:1px solid #1A1A1A;background:#050505;flex-wrap:wrap}
+.code-head-left{display:flex;align-items:center;gap:10px}
+.code-dots{display:flex;gap:6px}
+.code-dots i{width:9px;height:9px;border-radius:50%;display:block}
+.code-dots i:nth-child(1){background:#FF5F56;box-shadow:0 0 8px #FF5F5666}
+.code-dots i:nth-child(2){background:#FFBD2E;box-shadow:0 0 8px #FFBD2E66}
+.code-dots i:nth-child(3){background:#39FF14;box-shadow:0 0 8px #39FF1466}
+.code-filename{font:500 11px var(--mono);color:#888;letter-spacing:.04em}
+.code-filename span{color:#39FF14;text-shadow:0 0 8px #39FF1455}
+.code-head-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.code-badge{font:600 9px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#39FF14;background:#39FF1412;border:1px solid #39FF1433;padding:4px 8px;border-radius:999px;display:inline-flex;align-items:center;gap:6px}
+.code-badge.live-dot::before{content:"";width:6px;height:6px;border-radius:50%;background:#39FF14;box-shadow:0 0 8px #39FF14;animation:blink 1.4s infinite}
+.code-badge.dim{color:#00FFFF;background:#00FFFF12;border-color:#00FFFF33}
+.code-tabs{display:flex;gap:6px}
+.code-tab{font:500 10px var(--mono);color:#666;border:1px solid #222;background:#0A0A0A;padding:5px 10px;border-radius:999px;cursor:pointer;transition:.18s}
+.code-tab:hover{border-color:#39FF1444;color:#fff}
+.code-tab.active{color:#000;background:linear-gradient(180deg,#39FF14,#00E5FF);border-color:transparent;font-weight:700;box-shadow:0 0 12px #39FF1455}
+.code-body{position:relative;display:grid;grid-template-columns:1.22fr .78fr;gap:0;min-height:232px}
+.code-editor{position:relative;padding:16px 14px 14px 0;overflow:hidden;background:radial-gradient(520px 220px at 18% 0%,#39FF1408,transparent 60%), radial-gradient(420px 200px at 88% 98%,#00FFFF08,transparent 60%), #060606;border-right:1px solid #111}
+.code-gutter{position:absolute;left:0;top:16px;bottom:14px;width:36px;display:flex;flex-direction:column;align-items:flex-end;padding-right:8px;gap:1px;color:#333;font:10px/1.7 var(--mono);user-select:none}
+.code-pre{margin:0 0 0 36px;padding:0;font:12.5px/1.7 var(--mono);color:#d8d8d8;white-space:pre-wrap;word-break:break-word;min-height:168px}
+.code-pre .cmt{color:#5a667a}
+.code-pre .kw{color:#FF10F0;text-shadow:0 0 8px #FF10F066}
+.code-pre .fn{color:#39FF14}
+.code-pre .str{color:#FAFF00}
+.code-pre .num{color:#00FFFF}
+.code-pre .cls{color:#BC13FE}
+.code-pre .op{color:#888}
+.cursor{ display:inline-block;width:8px;height:1.05em;background:#39FF14;vertical-align:text-bottom;box-shadow:0 0 8px #39FF14;animation:caret 1s step-end infinite;margin-left:1px}
+@keyframes caret{0%,50%{opacity:1}51%,100%{opacity:0}}
+.code-runbar{display:flex;gap:8px;align-items:center;margin:10px 0 0 36px;flex-wrap:wrap}
+.code-runbtn{font:700 10px var(--mono);letter-spacing:.07em;text-transform:uppercase;color:#000;background:linear-gradient(135deg,#39FF14,#00FFFF);border:0;padding:7px 12px;border-radius:999px;cursor:pointer;box-shadow:0 0 14px #39FF1444}
+.code-runbtn:hover{filter:brightness(1.08)}
+.code-status{font:11px var(--mono);color:#666}
+.code-status b{color:#39FF14}
+.code-visual{position:relative;padding:14px;background:linear-gradient(180deg,#080808,#050505);overflow:hidden;display:flex;flex-direction:column;gap:10px}
+.viz-head{font:600 10px var(--mono);letter-spacing:.09em;text-transform:uppercase;color:#666;display:flex;justify-content:space-between;align-items:center}
+.viz-head span:last-child{color:#39FF14}
+.mini-net{position:relative;height:132px;border:1px solid #1A1A1A;border-radius:10px;background:radial-gradient(400px 160px at 50% 0%,#39FF1410,transparent 65%), #060606;overflow:hidden}
+.mini-net canvas{width:100%;height:100%;display:block}
+.loss-ticker{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.loss-ticker div{background:#0A0A0A;border:1px solid #1E1E1E;border-radius:10px;padding:8px 9px}
+.loss-ticker b{font:700 12px var(--mono);color:#fff;display:block}
+.loss-ticker b.neon{color:#39FF14;text-shadow:0 0 8px #39FF1455}
+.loss-ticker b.cyan{color:#00FFFF;text-shadow:0 0 8px #00FFFF55}
+.loss-ticker b.pink{color:#BC13FE;text-shadow:0 0 8px #BC13FE55}
+.loss-ticker span{font:9px var(--mono);color:#666;text-transform:uppercase;letter-spacing:.06em}
+@media(max-width:900px){ .code-body{grid-template-columns:1fr} .code-editor{border-right:0;border-bottom:1px solid #111} .mini-net{height:148px} }
+@media(max-width:720px){ .ml-code-shell{width:min(100% - 32px,1140px)} .code-pre{font-size:11.5px} }
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .orb{animation:none}
@@ -247,6 +301,7 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
   .hero h1 .line span{animation:none;transform:none}
   .chart .loss{transition:none;stroke-dasharray:none;stroke-dashoffset:0}
   .reveal{transition:none}
+  .cursor{animation:none}
 }
 </style>
 </head>
@@ -272,6 +327,48 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 </nav>
 
 <main id="top">
+  <!-- FANCY ML CODE — top of home -->
+  <div class="ml-code-bar reveal in" style="opacity:1;transform:none">
+    <div class="ml-code-shell">
+      <div class="code-window" id="mlCodeWindow">
+        <div class="code-head">
+          <div class="code-head-left">
+            <span class="code-dots"><i></i><i></i><i></i></span>
+            <span class="code-filename"><span>krishna</span>@portfolio:~/ml — <span id="codeFilename">train_transformer.py</span></span>
+          </div>
+          <div class="code-head-right">
+            <span class="code-badge live-dot">live coding</span>
+            <span class="code-badge dim" id="codeModelBadge">PyTorch · cuda</span>
+            <div class="code-tabs" role="tablist" aria-label="ML code snippets">
+              <button class="code-tab active" data-code="mnist" aria-selected="true">mnist_cnn</button>
+              <button class="code-tab" data-code="sentiment" aria-selected="false">sentiment</button>
+              <button class="code-tab" data-code="transformer" aria-selected="false">transformer</button>
+            </div>
+          </div>
+        </div>
+        <div class="code-body">
+          <div class="code-editor">
+            <div class="code-gutter" id="codeGutter" aria-hidden="true"></div>
+            <pre class="code-pre" id="codePre" aria-live="polite"></pre>
+            <div class="code-runbar">
+              <button class="code-runbtn" id="codeRunBtn">▶ replay typing</button>
+              <span class="code-status" id="codeStatus"><b>●</b> typing … loss <b id="codeLoss">0.084</b> · acc <b id="codeAcc">96.2%</b></span>
+            </div>
+          </div>
+          <div class="code-visual" aria-hidden="true">
+            <div class="viz-head"><span>neural activity</span><span id="vizFps">60 fps</span></div>
+            <div class="mini-net"><canvas id="miniNetCanvas" width="360" height="132"></canvas></div>
+            <div class="loss-ticker">
+              <div><b class="neon" id="tickerLoss">0.084</b><span>loss ↓ 94%</span></div>
+              <div><b class="cyan" id="tickerAcc">96.2%</b><span>accuracy</span></div>
+              <div><b class="pink" id="tickerSteps">40</b><span>epochs</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <header class="hero">
     <div class="shell hero-layout">
       <div>
@@ -623,6 +720,179 @@ document.querySelectorAll('a[href^="mailto:"]').forEach(a=>{
     }
   });
 });
+
+// ===== FANCY ML CODE — typing + neural viz =====
+(function(){
+  const pre=document.getElementById('codePre');
+  const gutter=document.getElementById('codeGutter');
+  const runBtn=document.getElementById('codeRunBtn');
+  const filenameEl=document.getElementById('codeFilename');
+  const badgeEl=document.getElementById('codeModelBadge');
+  const tabsEls=[...document.querySelectorAll('.code-tab')];
+  if(!pre) return;
+  const snippets={
+    mnist:{
+      file:'kaggle/mnist_cnn.py',
+      badge:'TensorFlow · Keras · MNIST',
+      html:[
+        '<span class="cmt"># handwritten digit classifier — CNN on MNIST (your Kaggle #1)</span>',
+        '<span class="kw">import</span> tensorflow <span class="kw">as</span> tf <span class="kw">from</span> tensorflow <span class="kw">import</span> keras',
+        '<span class="kw">import</span> numpy <span class="kw">as</span> np',
+        '',
+        '(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.<span class="fn">load_data</span>()',
+        'x_train = x_train.<span class="fn">reshape</span>(-<span class="num">1</span>,<span class="num">28</span>,<span class="num">28</span>,<span class="num">1</span>).<span class="fn">astype</span>(<span class="str">"float32"</span>)/<span class="num">255</span>',
+        'x_test  = x_test.<span class="fn">reshape</span>(-<span class="num">1</span>,<span class="num">28</span>,<span class="num">28</span>,<span class="num">1</span>).<span class="fn">astype</span>(<span class="str">"float32"</span>)/<span class="num">255</span>',
+        '',
+        'model = keras.<span class="cls">Sequential</span>([',
+        '  keras.layers.<span class="cls">Conv2D</span>(<span class="num">32</span>,<span class="num">3</span>, activation=<span class="str">"relu"</span>, input_shape=(<span class="num">28</span>,<span class="num">28</span>,<span class="num">1</span>)),',
+        '  keras.layers.<span class="cls">MaxPool2D</span>(), keras.layers.<span class="cls">Conv2D</span>(<span class="num">64</span>,<span class="num">3</span>, activation=<span class="str">"relu"</span>),',
+        '  keras.layers.<span class="cls">MaxPool2D</span>(), keras.layers.<span class="cls">Flatten</span>(),',
+        '  keras.layers.<span class="cls">Dense</span>(<span class="num">128</span>, activation=<span class="str">"relu"</span>), keras.layers.<span class="cls">Dropout</span>(<span class="num">0.3</span>),',
+        '  keras.layers.<span class="cls">Dense</span>(<span class="num">10</span>, activation=<span class="str">"softmax"</span>)',
+        '])',
+        'model.<span class="fn">compile</span>(optimizer=<span class="str">"adam"</span>, loss=<span class="str">"sparse_categorical_crossentropy"</span>, metrics=[<span class="str">"accuracy"</span>])',
+        'model.<span class="fn">fit</span>(x_train, y_train, epochs=<span class="num">8</span>, batch_size=<span class="num">128</span>, validation_split=<span class="num">0.1</span>)  <span class="cmt"># → 99.1% / 0.084 loss</span>',
+      ].join('\n')
+    },
+    sentiment:{
+      file:'kaggle/sentiment_tfidf.py',
+      badge:'scikit-learn · TF-IDF · NLP',
+      html:[
+        '<span class="cmt"># sentiment analysis — TF-IDF + LogisticRegression (your Kaggle #2)</span>',
+        '<span class="kw">import</span> pandas <span class="kw">as</span> pd <span class="kw">from</span> sklearn.feature_extraction.text <span class="kw">import</span> TfidfVectorizer',
+        '<span class="kw">from</span> sklearn.linear_model <span class="kw">import</span> LogisticRegression <span class="kw">from</span> sklearn.model_selection <span class="kw">import</span> train_test_split',
+        '',
+        'df = pd.<span class="fn">read_csv</span>(<span class="str">"imdb_reviews.csv"</span>)  <span class="cmt"># text, label</span>',
+        'vec = <span class="cls">TfidfVectorizer</span>(max_features=<span class="num">20000</span>, ngram_range=(<span class="num">1</span>,<span class="num">2</span>), stop_words=<span class="str">"english"</span>)',
+        'X = vec.<span class="fn">fit_transform</span>(df.text)  <span class="cmt"># sparse [n, 20k]</span>',
+        'Xtr, Xte, ytr, yte = <span class="fn">train_test_split</span>(X, df.label, test_size=<span class="num">0.2</span>, random_state=<span class="num">42</span>)',
+        '',
+        'clf = <span class="cls">LogisticRegression</span>(max_iter=<span class="num">1000</span>, C=<span class="num">1.5</span>).<span class="fn">fit</span>(Xtr, ytr)',
+        'acc = clf.<span class="fn">score</span>(Xte, yte)  <span class="cmt"># → 89.3% accuracy</span>',
+        '<span class="kw">print</span>(<span class="str">f"accuracy: {acc:.3f}"</span>)',
+        'pred = clf.<span class="fn">predict</span>(vec.<span class="fn">transform</span>([<span class="str">"this movie was brilliant!"</span>]))  <span class="cmt"># → 1 (positive)</span>',
+      ].join('\n')
+    },
+    transformer:{
+      file:'train_transformer.py',
+      badge:'PyTorch · MultiheadAttention',
+      html:[
+        '<span class="cmt"># transformer block — scaled dot-product attention</span>',
+        '<span class="kw">import</span> torch <span class="kw">import</span> torch.nn <span class="kw">as</span> nn',
+        '',
+        '<span class="kw">class</span> <span class="cls">TransformerBlock</span>(nn.Module):',
+        '    <span class="kw">def</span> <span class="fn">__init__</span>(<span class="op">self</span>, dim=<span class="num">512</span>, heads=<span class="num">8</span>):',
+        '        <span class="op">super</span>().<span class="fn">__init__</span>()',
+        '        <span class="op">self</span>.attn = nn.<span class="cls">MultiheadAttention</span>(dim, heads, dropout=<span class="num">0.1</span>)',
+        '        <span class="op">self</span>.ffn  = nn.<span class="cls">Sequential</span>(nn.<span class="cls">Linear</span>(dim, dim*<span class="num">4</span>), nn.<span class="cls">GELU</span>(), nn.<span class="cls">Linear</span>(dim*<span class="num">4</span>, dim))',
+        '        <span class="op">self</span>.norm1 = nn.<span class="cls">LayerNorm</span>(dim)',
+        '        <span class="op">self</span>.norm2 = nn.<span class="cls">LayerNorm</span>(dim)',
+        '    <span class="kw">def</span> <span class="fn">forward</span>(<span class="op">self</span>, x):',
+        '        a,_ = <span class="op">self</span>.attn(<span class="op">self</span>.norm1(x), <span class="op">self</span>.norm1(x), <span class="op">self</span>.norm1(x))',
+        '        x = x + a  <span class="cmt"># residual</span>',
+        '        x = x + <span class="op">self</span>.ffn(<span class="op">self</span>.norm2(x))',
+        '        <span class="kw">return</span> x  <span class="cmt"># [B, T, 512]</span>',
+      ].join('\n')
+    }
+  };
+  let active='mnist';
+  let raf=null, idx=0, charSpeed=14;
+  let fullText='';
+  function setActive(key){
+    active=key;
+    tabsEls.forEach(b=>{ const on=b.dataset.code===key; b.classList.toggle('active',on); b.setAttribute('aria-selected',on); });
+    filenameEl.textContent=snippets[key].file;
+    badgeEl.textContent=snippets[key].badge;
+    fullText=snippets[key].html;
+    startTyping();
+  }
+  function renderGutter(lines){
+    gutter.innerHTML=Array.from({length:lines},(_,i)=>`<span>${String(i+1).padStart(2,'0')}</span>`).join('');
+  }
+  function startTyping(){
+    if(raf) cancelAnimationFrame(raf);
+    idx=0;
+    pre.innerHTML='';
+    const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if(reduced){ pre.innerHTML=fullText + '<span class="cursor"></span>'; const lines=fullText.split('\n').length; renderGutter(lines); updateTickers(1); return; }
+    const lines = fullText.split('\n').length; renderGutter(lines);
+    let last=performance.now();
+    function step(now){
+      if(now-last < charSpeed){ raf=requestAnimationFrame(step); return; }
+      last=now;
+      idx = Math.min(fullText.length, idx + 6 + Math.floor(Math.random()*4));
+      const slice=fullText.slice(0, idx);
+      const showCursor = idx < fullText.length ? '<span class="cursor"></span>' : '<span class="cursor" style="opacity:.35"></span>';
+      pre.innerHTML=slice + showCursor;
+      updateTickers(idx / fullText.length);
+      if(idx < fullText.length) raf=requestAnimationFrame(step);
+    }
+    raf=requestAnimationFrame(step);
+  }
+  function updateTickers(p){
+    const lossEl=document.getElementById('tickerLoss');
+    const accEl=document.getElementById('tickerAcc');
+    const loss2=document.getElementById('codeLoss');
+    const acc2=document.getElementById('codeAcc');
+    if(!lossEl) return;
+    const loss=(2.3 - p*2.216).toFixed(3);
+    const acc=(45 + p*51.2).toFixed(1)+'%';
+    lossEl.textContent= Math.max(0.084, parseFloat(loss)).toFixed(3);
+    if(acc2) acc2.textContent=acc;
+    if(loss2) loss2.textContent=lossEl.textContent;
+    if(accEl) accEl.textContent=acc;
+  }
+  tabsEls.forEach(b=> b.addEventListener('click', ()=> setActive(b.dataset.code)));
+  runBtn?.addEventListener('click', ()=> startTyping());
+  setActive('mnist');
+  // auto-cycle
+  let cycIdx=0; const cycKeys=['mnist','sentiment','transformer'];
+  setInterval(()=>{ if(document.hidden) return; cycIdx=(cycIdx+1)%cycKeys.length; setActive(cycKeys[cycIdx]); }, 14000);
+
+  // mini neural net canvas
+  const net=document.getElementById('miniNetCanvas');
+  if(net){
+    const ctx=net.getContext('2d');
+    let w=360,h=132;
+    function resizeNet(){ const r=net.getBoundingClientRect(); const dpr=window.devicePixelRatio||1; w=r.width; h=r.height; net.width=w*dpr; net.height=h*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
+    resizeNet(); addEventListener('resize', resizeNet);
+    const layers=[4,6,6,3];
+    let t=0;
+    function drawNet(){
+      t+=0.016;
+      ctx.clearRect(0,0,w,h);
+      ctx.fillStyle='#060606'; ctx.fillRect(0,0,w,h);
+      const layerX = layers.map((_,i)=> 18 + i*((w-36)/(layers.length-1)) );
+      const neurons = layers.map((n,i)=> Array.from({length:n},(_,j)=> ({x:layerX[i], y: 14 + j*((h-28)/Math.max(1,n-1)) })));
+      for(let li=0; li<layers.length-1; li++){
+        for(let a=0;a<neurons[li].length;a++){
+          for(let b=0;b<neurons[li+1].length;b++){
+            const p1=neurons[li][a], p2=neurons[li+1][b];
+            const pulse=(Math.sin(t*1.2 + a*0.7 + b*0.4 + li)*0.5+0.5);
+            ctx.strokeStyle=`rgba(${57 + pulse*70},255,${20 + pulse*90},${0.07 + pulse*0.14})`;
+            ctx.lineWidth= pulse>0.62 ? 1.15 : 0.65;
+            ctx.beginPath(); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y); ctx.stroke();
+            if(pulse>0.84){
+              const k=(Math.sin(t*2.1 + li+a+b)*0.5+0.5);
+              const px=p1.x + (p2.x-p1.x)*k, py=p1.y + (p2.y-p1.y)*k;
+              ctx.fillStyle='#39FF14'; ctx.shadowColor='#39FF14'; ctx.shadowBlur=6;
+              ctx.beginPath(); ctx.arc(px,py,1.5,0,Math.PI*2); ctx.fill(); ctx.shadowBlur=0;
+            }
+          }
+        }
+      }
+      neurons.forEach(layer=> layer.forEach((n,i)=>{
+        const act=(Math.sin(t*1.7 + n.x*0.02 + n.y*0.03 + i)*0.5+0.5);
+        ctx.fillStyle= act>0.52 ? '#39FF14' : '#0A2618';
+        ctx.strokeStyle= act>0.52 ? '#39FF14' : '#1A1A1A';
+        ctx.lineWidth=1;
+        ctx.beginPath(); ctx.arc(n.x,n.y,5.2,0,Math.PI*2); ctx.fill(); ctx.stroke();
+      }));
+      requestAnimationFrame(drawNet);
+    }
+    drawNet();
+  }
+})();
 
 // mobile menu simple
 const btn=document.getElementById('menuBtn');

@@ -1,2 +1,6 @@
 .vercel
 .env*
+
+# Hostinger deploy bundle - built from the tracked files, not a source
+krishnasharma-xyz-hostinger.zip
+.DS_Store

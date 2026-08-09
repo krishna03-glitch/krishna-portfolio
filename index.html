@@ -8,7 +8,7 @@
 <title>Krishna Sharma — ML Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#000000;--surface:#0A0A0A;--surface-2:#111111;--line:#222222;--text:#FFFFFF;--muted:#9AA0A6;
@@ -311,6 +311,64 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
   .reveal{transition:none}
   .cursor{animation:none}
 }
+/* ===== SOFTMAX BACKPROP LAB — pasted front page hero ===== */
+.sbl-wrap{--sbl-ink:#ece9e2;--sbl-muted:#9c9b9a;--sbl-canvas:#0b0b0d;--sbl-panel:#141416;--sbl-line:#2b2b2f;--sbl-lime:#d9ff64;--sbl-violet:#ae8cff;--sbl-coral:#ff8b72;--sbl-cyan:#6de4e5;background:var(--sbl-canvas);color:var(--sbl-ink);font-family:"DM Sans",sans-serif;background-image:radial-gradient(ellipse 65% 45% at 85% -10%,#241f45 0%,transparent 70%),radial-gradient(ellipse 50% 35% at 5% 115%,#1f3329 0%,transparent 72%);border-bottom:1px solid #1a1a1a}
+.sbl-wrap *{box-sizing:border-box}
+.sbl-inner{width:min(1180px,calc(100% - 48px));margin:auto;padding:28px 0 38px}
+.sbl-nav{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--sbl-muted);letter-spacing:.04em}
+.sbl-brand{color:var(--sbl-ink);font-weight:700;letter-spacing:-.03em;font-size:17px}
+.sbl-brand i{font-family:"Instrument Serif",serif;font-weight:400;color:var(--sbl-lime);font-size:22px;font-style:normal}
+.sbl-pill{border:1px solid #3c3b41;border-radius:100px;padding:8px 12px;color:#c9c8c5;background:#151518;font:12px "DM Mono",monospace}
+.sbl-hero{padding:56px 0 44px;display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:end}
+.sbl-eyebrow{font:500 11px "DM Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--sbl-lime);display:flex;align-items:center;gap:9px}
+.sbl-eyebrow:before{content:"";height:6px;width:6px;border-radius:50%;background:var(--sbl-lime);box-shadow:0 0 15px var(--sbl-lime)}
+.sbl-title{font-size:clamp(46px,8vw,92px);line-height:.86;letter-spacing:-.075em;margin:17px 0 22px;font-weight:600;color:var(--sbl-ink)}
+.sbl-title em{font-family:"Instrument Serif",serif;font-weight:400;color:#d7d3ff;letter-spacing:-.055em;font-style:normal}
+.sbl-intro{font-size:17px;line-height:1.55;color:#b3b1b0;max-width:480px;margin:0}
+.sbl-formula{border-left:1px solid var(--sbl-lime);padding:11px 0 11px 21px;font:15px "DM Mono",monospace;color:#d6d4cf;line-height:1.85}
+.sbl-formula span{color:var(--sbl-violet)}
+.sbl-lab{border:1px solid var(--sbl-line);border-radius:16px;overflow:hidden;background:rgba(20,20,22,.88);box-shadow:0 28px 70px #0006}
+.sbl-lab-head{height:58px;border-bottom:1px solid var(--sbl-line);display:flex;align-items:center;padding:0 21px;justify-content:space-between}
+.sbl-dots{display:flex;gap:7px}
+.sbl-dots b{width:9px;height:9px;border-radius:50%;background:#4d4c51;display:block}
+.sbl-dots b:first-child{background:var(--sbl-coral)}
+.sbl-dots b:nth-child(2){background:#f6ce65}
+.sbl-dots b:last-child{background:var(--sbl-lime)}
+.sbl-filename{font:12px "DM Mono",monospace;color:#9e9ba2}
+.sbl-run{background:var(--sbl-lime);border:0;border-radius:7px;padding:8px 12px;color:#182005;font:500 12px "DM Mono",monospace;cursor:pointer;transition:filter .15s}
+.sbl-run:hover{filter:brightness(1.08)}
+.sbl-lab-body{display:grid;grid-template-columns:1.3fr .7fr;min-height:438px}
+.sbl-code{padding:24px 0;font:13px/1.8 "DM Mono",monospace;overflow:auto;color:#dedcdf;background:#101012;counter-reset:sbl-line}
+.sbl-line{display:block;white-space:pre;padding:0 22px 0 61px;position:relative}
+.sbl-line:before{counter-increment:sbl-line;content:counter(sbl-line);position:absolute;left:0;width:42px;text-align:right;color:#57555c}
+.sbl-line.sbl-blank{height:18px}
+.sbl-key{color:var(--sbl-violet)}
+.sbl-fn{color:var(--sbl-cyan)}
+.sbl-num{color:var(--sbl-coral)}
+.sbl-comment{color:#696870}
+.sbl-op{color:#f3e8ac}
+.sbl-result{border-left:1px solid var(--sbl-line);padding:25px 22px;background:#0f0f10}
+.sbl-result h3{font-size:12px;text-transform:uppercase;letter-spacing:.12em;margin:0 0 23px;color:#9d9aa1;font-family:"DM Sans",sans-serif}
+.sbl-metric{margin:0 0 22px}
+.sbl-metric label{display:flex;justify-content:space-between;font:12px "DM Mono",monospace;color:#b8b6b8;margin-bottom:8px}
+.sbl-bar{height:5px;border-radius:3px;background:#29292d;overflow:hidden}
+.sbl-bar i{display:block;height:100%;border-radius:3px;background:var(--sbl-lime);width:78%;transition:width .6s cubic-bezier(.2,.8,.2,1)}
+.sbl-metric:nth-of-type(2) .sbl-bar i{background:var(--sbl-violet);width:16%}
+.sbl-metric:nth-of-type(3) .sbl-bar i{background:var(--sbl-coral);width:6%}
+.sbl-loss{margin-top:32px;border-top:1px solid var(--sbl-line);padding-top:19px}
+.sbl-loss small{font:11px "DM Mono",monospace;color:var(--sbl-muted)}
+.sbl-loss strong{display:block;font:36px "DM Mono",monospace;letter-spacing:-.08em;margin-top:5px;color:var(--sbl-lime)}
+.sbl-bottom{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--sbl-line);margin-top:42px}
+.sbl-item{padding:23px 30px 5px 0;border-right:1px solid var(--sbl-line);min-height:130px}
+.sbl-item:not(:first-child){padding-left:28px}
+.sbl-item:last-child{border:0}
+.sbl-n{font:28px "Instrument Serif",serif;color:#e1ddff}
+.sbl-item h3{font-size:14px;margin:8px 0 5px;color:var(--sbl-ink);font-family:"DM Sans",sans-serif}
+.sbl-item p{font-size:13px;color:var(--sbl-muted);line-height:1.4;margin:0;max-width:230px}
+.sbl-foot{display:flex;justify-content:space-between;align-items:center;color:#77757b;font:12px "DM Mono",monospace;padding-top:34px}
+.sbl-progress{height:1px;background:#36353a;width:160px}
+.sbl-progress i{display:block;width:47%;height:100%;background:var(--sbl-lime)}
+@media(max-width:760px){.sbl-hero{grid-template-columns:1fr;padding:40px 0 32px;gap:28px}.sbl-lab-body{grid-template-columns:1fr}.sbl-result{border-left:0;border-top:1px solid var(--sbl-line);display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.sbl-result h3,.sbl-loss{grid-column:1/-1}.sbl-metric{margin:0}.sbl-loss{margin-top:5px}.sbl-bottom{grid-template-columns:1fr}.sbl-item,.sbl-item:not(:first-child){border-right:0;border-bottom:1px solid var(--sbl-line);padding:20px 0;min-height:auto}.sbl-foot{padding-top:20px}.sbl-code{font-size:12px}}
 </style>
 </head>
 <body>
@@ -335,6 +393,29 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 </nav>
 
 <main id="top">
+  <!-- SOFTMAX BACKPROP LAB — pasted at top above existing -->
+  <section class="sbl-wrap" aria-label="Softmax Backpropagation Lab">
+    <div class="sbl-inner">
+      <div class="sbl-nav"><div class="sbl-brand">gradient<i>field</i></div><div class="sbl-pill">Neural networks / 04</div></div>
+      <div class="sbl-hero">
+        <div>
+          <div class="sbl-eyebrow">The gradient beneath confidence</div>
+          <h2 class="sbl-title">Softmax<br><em>backward</em></h2>
+          <p class="sbl-intro">A compact implementation of the derivative that turns a classifier's confident mistake into a useful learning signal.</p>
+        </div>
+        <div class="sbl-formula">∂L / ∂<span>zᵢ</span> = softmax(z)ᵢ − yᵢ<br><small style="color:#77757b">cross-entropy loss · logits z · target y</small></div>
+      </div>
+      <div class="sbl-lab" aria-label="Interactive backpropagation code example">
+        <div class="sbl-lab-head"><div class="sbl-dots"><b></b><b></b><b></b></div><div class="sbl-filename">softmax_backward.py</div><button class="sbl-run" id="sbl-run" type="button">▶ Run gradient</button></div>
+        <div class="sbl-lab-body">
+          <code class="sbl-code"><span class="sbl-line"><span class="sbl-key">import</span> numpy <span class="sbl-key">as</span> np</span><span class="sbl-line sbl-blank"></span><span class="sbl-line"><span class="sbl-key">def</span> <span class="sbl-fn">softmax</span>(logits):</span><span class="sbl-line">    shifted = logits - logits.<span class="sbl-fn">max</span>(axis=-<span class="sbl-num">1</span>, keepdims=<span class="sbl-key">True</span>)</span><span class="sbl-line">    exp = np.<span class="sbl-fn">exp</span>(shifted)       <span class="sbl-comment"># numerical stability</span></span><span class="sbl-line">    <span class="sbl-key">return</span> exp / exp.<span class="sbl-fn">sum</span>(axis=-<span class="sbl-num">1</span>, keepdims=<span class="sbl-key">True</span>)</span><span class="sbl-line sbl-blank"></span><span class="sbl-line"><span class="sbl-key">def</span> <span class="sbl-fn">softmax_cross_entropy_backward</span>(logits, target):</span><span class="sbl-line">    probs = <span class="sbl-fn">softmax</span>(logits)</span><span class="sbl-line">    grad = probs.<span class="sbl-fn">copy</span>()</span><span class="sbl-line">    grad[np.<span class="sbl-fn">arange</span>(len(target)), target] <span class="sbl-op">-=</span> <span class="sbl-num">1.0</span></span><span class="sbl-line">    <span class="sbl-key">return</span> grad / len(target)  <span class="sbl-comment"># dL / d(logits)</span></span><span class="sbl-line sbl-blank"></span><span class="sbl-line">logits = np.<span class="sbl-fn">array</span>([[<span class="sbl-num">2.4</span>, <span class="sbl-num">0.8</span>, -<span class="sbl-num">0.2</span>]])</span><span class="sbl-line">gradient = <span class="sbl-fn">softmax_cross_entropy_backward</span>(logits, [<span class="sbl-num">0</span>])</span></code>
+          <aside class="sbl-result"><h3>Live output / probabilities</h3><div class="sbl-metric"><label><span>class 0 · true</span><b id="sbl-p0">78.4%</b></label><div class="sbl-bar"><i id="sbl-b0"></i></div></div><div class="sbl-metric"><label><span>class 1</span><b id="sbl-p1">15.8%</b></label><div class="sbl-bar"><i id="sbl-b1"></i></div></div><div class="sbl-metric"><label><span>class 2</span><b id="sbl-p2">5.8%</b></label><div class="sbl-bar"><i id="sbl-b2"></i></div></div><div class="sbl-loss"><small>cross-entropy loss</small><strong id="sbl-loss">0.243</strong></div></aside>
+        </div>
+      </div>
+      <div class="sbl-bottom"><article class="sbl-item"><div class="sbl-n">01</div><h3>Shift before exponentiating</h3><p>Subtract the maximum logit to stay stable when confidence gets extreme.</p></article><article class="sbl-item"><div class="sbl-n">02</div><h3>Probability minus truth</h3><p>The elegant derivative: predicted distribution, adjusted at the target index.</p></article><article class="sbl-item"><div class="sbl-n">03</div><h3>One signal per logit</h3><p>Positive gradients lower excess confidence; the negative target gradient raises it.</p></article></div>
+      <div class="sbl-foot"><span>built for learning in motion</span><span class="sbl-progress"><i></i></span></div>
+    </div>
+  </section>
   <!-- FANCY ML CODE — top of home -->
   <div class="ml-code-bar reveal in" style="opacity:1;transform:none">
     <div class="ml-code-shell">
@@ -944,6 +1025,25 @@ btn?.addEventListener('click',()=>{
   if(open){links.style.top='72px';links.style.right='16px';links.style.flexDirection='column';links.style.background='#0A0A0A';links.style.border='1px solid #222';links.style.padding='14px 16px';links.style.borderRadius='12px';links.style.boxShadow='0 16px 40px #0006'}
 });
 
+// softmax backprop lab — Run gradient (pasted interactive)
+(() => {
+  const sblBtn=document.getElementById('sbl-run');let sblTick=0;
+  sblBtn?.addEventListener('click',()=>{
+    sblTick++;
+    const sets=[[.784,.158,.058],[.661,.246,.093],[.841,.112,.047]];
+    const p=sets[sblTick%sets.length];
+    p.forEach((v,i)=>{
+      const pe=document.getElementById('sbl-p'+i);
+      const be=document.getElementById('sbl-b'+i);
+      if(pe) pe.textContent=(v*100).toFixed(1)+'%';
+      if(be) be.style.width=(v*100)+'%';
+    });
+    const lossEl=document.getElementById('sbl-loss');
+    if(lossEl) lossEl.textContent=(-Math.log(p[0])).toFixed(3);
+    sblBtn.textContent='✓ Gradient updated';
+    setTimeout(()=>sblBtn.textContent='▶ Run gradient',900);
+  });
+})();
 // respect reduced motion: disable aura
 if(matchMedia('(prefers-reduced-motion: reduce)').matches){ aura.style.display='none'; }
 </script>

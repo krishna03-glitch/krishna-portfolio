@@ -1,0 +1,11 @@
+# Vercel CLI reads THIS file, not .gitignore, when deciding what to upload.
+
+# Hostinger deploy bundle - an artifact built from the files below it,
+# and it was being served at /krishnasharma-xyz-hostinger.zip
+krishnasharma-xyz-hostinger.zip
+
+# never ship local env files to a static host
+.env*
+
+.DS_Store
+README.md

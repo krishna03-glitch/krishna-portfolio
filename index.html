@@ -292,6 +292,14 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 .loss-ticker b.cyan{color:#00FFFF;text-shadow:0 0 8px #00FFFF55}
 .loss-ticker b.pink{color:#BC13FE;text-shadow:0 0 8px #BC13FE55}
 .loss-ticker span{font:9px var(--mono);color:#666;text-transform:uppercase;letter-spacing:.06em}
+.softmax-formula{margin-bottom:2px;border:1px solid #39FF1433;background:linear-gradient(135deg,#39FF1412,#00FFFF0F,#BC13FE0F);border-radius:10px;padding:10px 12px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px;box-shadow:0 0 18px #39FF140F inset}
+.softmax-formula .formula{font:600 13px var(--mono);color:#fff;letter-spacing:-.02em;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.softmax-formula .formula em{font-style:normal;color:#39FF14;text-shadow:0 0 8px #39FF1499}
+.softmax-formula .formula .frac{display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;margin:0 2px}
+.softmax-formula .formula .frac .num{border-bottom:1px solid #39FF1488;padding:0 6px;line-height:1.2}
+.softmax-formula .formula .frac .den{padding:0 6px;line-height:1.2;color:#00FFFF}
+.softmax-formula .formula-sub{font:500 10px var(--mono);color:#888;letter-spacing:.04em}
+.softmax-formula .formula-sub b{color:#FAFF00}
 @media(max-width:900px){ .code-body{grid-template-columns:1fr} .code-editor{border-right:0;border-bottom:1px solid #111} .mini-net{height:148px} }
 @media(max-width:720px){ .ml-code-shell{width:min(100% - 32px,1140px)} .code-pre{font-size:11.5px} }
 @media(prefers-reduced-motion:reduce){
@@ -358,6 +366,10 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
           </div>
           <div class="code-visual" aria-hidden="true">
             <div class="viz-head"><span>neural activity</span><span id="vizFps">60 fps</span></div>
+            <div id="softmaxFormula" class="softmax-formula">
+              <span class="formula"><em>softmax(z<sub>i</sub>)</em> = <span class="frac"><span class="num">e<sup>z<sub>i</sub>/T</sup></span><span class="den">Σ<sub>j</sub> e<sup>z<sub>j</sub>/T</sup></span></span>  <span style="color:#666">·</span> Σ p = 1</span>
+              <span class="formula-sub">T→0 sharp · T→∞ flat · <b>stable: z − max(z)</b></span>
+            </div>
             <div class="mini-net"><canvas id="miniNetCanvas" width="360" height="132"></canvas></div>
             <div class="loss-ticker">
               <div><b class="neon" id="tickerLoss">0.084</b><span>loss ↓ 94%</span></div>
@@ -829,6 +841,8 @@ document.querySelectorAll('a[href^="mailto:"]').forEach(a=>{
     filenameEl.textContent=snippets[key].file;
     badgeEl.textContent=snippets[key].badge;
     fullText=snippets[key].html;
+    const formula=document.getElementById('softmaxFormula');
+    if(formula) formula.style.display = (key==='softmax') ? 'flex' : 'none';
     startTyping();
   }
   function renderGutter(lines){

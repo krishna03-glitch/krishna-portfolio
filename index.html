@@ -340,7 +340,8 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
             <span class="code-badge live-dot">live coding</span>
             <span class="code-badge dim" id="codeModelBadge">PyTorch · cuda</span>
             <div class="code-tabs" role="tablist" aria-label="ML code snippets">
-              <button class="code-tab active" data-code="mnist" aria-selected="true">mnist_cnn</button>
+              <button class="code-tab active" data-code="softmax" aria-selected="true">softmax</button>
+              <button class="code-tab" data-code="mnist" aria-selected="false">mnist_cnn</button>
               <button class="code-tab" data-code="sentiment" aria-selected="false">sentiment</button>
               <button class="code-tab" data-code="transformer" aria-selected="false">transformer</button>
             </div>
@@ -731,6 +732,30 @@ document.querySelectorAll('a[href^="mailto:"]').forEach(a=>{
   const tabsEls=[...document.querySelectorAll('.code-tab')];
   if(!pre) return;
   const snippets={
+    softmax:{
+      file:'ml/softmax.py — stable ★',
+      badge:'softmax · temperature · cross-entropy',
+      html:[
+        '<span class="cmt"># softmax — stable, temperature-scaled (used in MNIST head + attention)</span>',
+        '<span class="kw">import</span> numpy <span class="kw">as</span> np <span class="kw">import</span> torch.nn.functional <span class="kw">as</span> F',
+        '',
+        '<span class="kw">def</span> <span class="fn">softmax</span>(logits, T=<span class="num">1.0</span>, dim=-<span class="num">1</span>):',
+        '    <span class="cmt"># logits: [B, K]  — subtract max for numerical stability</span>',
+        '    z = logits / T',
+        '    z = z - np.<span class="fn">max</span>(z, axis=dim, keepdims=<span class="kw">True</span>)',
+        '    e = np.<span class="fn">exp</span>(z)',
+        '    <span class="kw">return</span> e / np.<span class="fn">sum</span>(e, axis=dim, keepdims=<span class="kw">True</span>)  <span class="cmt"># Σ p = 1</span>',
+        '',
+        '<span class="cmt"># torch one-liner (same math) — used in model head</span>',
+        '<span class="cmt"># probs = F.softmax(logits / T, dim=-1)  # [B, 10] for MNIST</span>',
+        '',
+        '<span class="cmt"># demo: MNIST logits → calibrated probabilities</span>',
+        'logits = np.<span class="fn">array</span>([[<span class="num">2.1</span>, <span class="num">0.3</span>, -<span class="num">1.2</span>, <span class="num">4.0</span>, <span class="num">1.8</span>]])  <span class="cmt"># 5 classes</span>',
+        'probs = <span class="fn">softmax</span>(logits, T=<span class="num">0.8</span>)  <span class="cmt"># → [0.09 0.01 0.00 0.72 0.18]  T↓ sharpens</span>',
+        'loss = -np.<span class="fn">log</span>(probs[<span class="num">0</span>, <span class="num">3</span>] + <span class="num">1e-9</span>)  <span class="cmt"># cross-entropy for true=3 → 0.33</span>',
+        '<span class="kw">print</span>(<span class="str">f"probs {probs.round(2)}  loss {loss:.2f}"</span>)',
+      ].join('\n')
+    },
     mnist:{
       file:'kaggle/mnist_cnn.py',
       badge:'TensorFlow · Keras · MNIST',
@@ -795,7 +820,7 @@ document.querySelectorAll('a[href^="mailto:"]').forEach(a=>{
       ].join('\n')
     }
   };
-  let active='mnist';
+  let active='softmax';
   let raf=null, idx=0, charSpeed=14;
   let fullText='';
   function setActive(key){
@@ -844,9 +869,9 @@ document.querySelectorAll('a[href^="mailto:"]').forEach(a=>{
   }
   tabsEls.forEach(b=> b.addEventListener('click', ()=> setActive(b.dataset.code)));
   runBtn?.addEventListener('click', ()=> startTyping());
-  setActive('mnist');
+  setActive('softmax');
   // auto-cycle
-  let cycIdx=0; const cycKeys=['mnist','sentiment','transformer'];
+  let cycIdx=0; const cycKeys=['softmax','mnist','sentiment','transformer'];
   setInterval(()=>{ if(document.hidden) return; cycIdx=(cycIdx+1)%cycKeys.length; setActive(cycKeys[cycIdx]); }, 14000);
 
   // mini neural net canvas

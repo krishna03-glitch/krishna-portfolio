@@ -11,10 +11,19 @@
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <script>!function(){var n="https://krishnasharma.xyz/",t="krishna-portfolio-nine-rose-two.vercel.app",o="krishna-portfolio-nine-rose.vercel.app";if(location.hostname===t||location.hostname===o){var e=location.pathname+location.search+location.hash;try{var a=new URL(e,n);a.searchParams.delete("utm_source"),e=a.pathname+a.search+(a.hash||"")}catch(c){}location.replace(n.replace(/\/$/,"")+(e==="/"?"":e)||n)}else if(new URLSearchParams(location.search).get("utm_source")==="chatgpt.com"){var u=new URL(location.href);u.searchParams.delete("utm_source"),history.replaceState(null,"",u.pathname+u.search+u.hash)}}();</script>
 <title>Krishna Sharma — ML Engineer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+<!-- self-hosted fonts: no third-party round trip, nothing render-blocking -->
+<link rel="preload" href="/fonts/playfairdisplay-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/playfairdisplay-600i.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/manrope-var.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/dmmono-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
+@font-face{font-family:'DM Mono';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/dmmono-400.woff2) format('woff2')}
+@font-face{font-family:'DM Mono';font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/dmmono-500.woff2) format('woff2')}
+@font-face{font-family:'DM Sans';font-style:normal;font-weight:100 1000;font-display:swap;src:url(/fonts/dmsans-var.woff2) format('woff2')}
+@font-face{font-family:'Instrument Serif';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/instrumentserif-400.woff2) format('woff2')}
+@font-face{font-family:'Manrope';font-style:normal;font-weight:200 800;font-display:swap;src:url(/fonts/manrope-var.woff2) format('woff2')}
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/playfairdisplay-600.woff2) format('woff2')}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:600;font-display:swap;src:url(/fonts/playfairdisplay-600i.woff2) format('woff2')}
 :root{
   --bg:#000000;--surface:#0A0A0A;--surface-2:#111111;--line:#222222;--text:#FFFFFF;--muted:#9AA0A6;
   --teal:#39FF14;--teal-2:#00FFFF;--yellow:#FAFF00;--yellow-2:#FF006A;--blue:#00E5FF;--violet:#BC13FE;--violet-2:#FF10F0;
@@ -29,11 +38,11 @@ a{color:inherit;text-decoration:none}
 ::-moz-selection{background:#39FF1440;color:#fff}
 
 /* progress bar - neon */
-#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,#39FF14,#00FFFF,#BC13FE,#FAFF00);z-index:100;transition:width .08s linear;box-shadow:0 0 10px #39FF14, 0 0 20px #00FFFF}
+#progress{position:fixed;top:0;left:0;height:3px;width:100%;transform:scaleX(0);transform-origin:0 50%;background:linear-gradient(90deg,#39FF14,#00FFFF,#BC13FE,#FAFF00);z-index:100;transition:transform .08s linear;box-shadow:0 0 10px #39FF14, 0 0 20px #00FFFF}
 
 /* cursor aura - neon green */
-.cursor-aura{position:fixed;width:600px;height:600px;border-radius:50%;pointer-events:none;z-index:0;
-  background:radial-gradient(circle at center,#39FF1414 0,#00FFFF0D 35%,transparent 72%);transform:translate(-50%,-50%);opacity:0;transition:opacity .35s;will-change:left,top;filter:blur(2px)}
+.cursor-aura{position:fixed;left:0;top:0;width:600px;height:600px;border-radius:50%;pointer-events:none;z-index:0;
+  background:radial-gradient(circle at center,#39FF1414 0,#00FFFF0D 35%,transparent 72%);transform:translate3d(-50%,-50%,0);opacity:0;transition:opacity .35s;will-change:transform}
 @media(pointer:fine){ .cursor-aura{opacity:1} }
 
 /* animated mesh background - pure black with neon orbs */
@@ -636,23 +645,29 @@ footer::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;back
 <script>
 // progress
 const prog=document.getElementById('progress');
+let progRAF=0;
 addEventListener('scroll',()=>{
-  const h=document.documentElement;
-  const p=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
-  prog.style.width=p+'%';
+  if(progRAF) return;
+  progRAF=requestAnimationFrame(()=>{
+    progRAF=0;
+    const h=document.documentElement;
+    const p=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+    prog.style.transform='scaleX('+(p/100)+')';
+  });
 },{passive:true});
 
 // aura + shine + tilt
 const aura=document.getElementById('aura');
 const card=document.getElementById('modelCard');
 const shine=document.getElementById('shine');
-let mx=0,my=0;
-addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  aura.style.left=mx+'px';aura.style.top=my+'px';
+let mx=0,my=0,pointerRAF=0;
+// batch all reads/writes into one rAF so a fast mouse can't thrash layout
+function applyPointer(){
+  pointerRAF=0;
+  aura.style.transform=`translate3d(${mx}px,${my}px,0) translate(-50%,-50%)`;
   if(card){
     const r=card.getBoundingClientRect();
-    const x=e.clientX-r.left,y=e.clientY-r.top;
+    const x=mx-r.left,y=my-r.top;
     card.style.setProperty('--mx',x+'px');
     card.style.setProperty('--my',y+'px');
     if(x>=0&&x<=r.width&&y>=0&&y<=r.height){
@@ -660,6 +675,10 @@ addEventListener('mousemove',e=>{
       card.style.transform=`perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
     }
   }
+}
+addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  if(!pointerRAF) pointerRAF=requestAnimationFrame(applyPointer);
 },{passive:true});
 if(card) card.addEventListener('mouseleave',()=>{card.style.transform='';});
 
@@ -1031,9 +1050,18 @@ document.querySelectorAll('a[href^="mailto:ks76479@gmail.com"]').forEach(a=>{
         ctx.lineWidth=1;
         ctx.beginPath(); ctx.arc(n.x,n.y,5.2,0,Math.PI*2); ctx.fill(); ctx.stroke();
       }));
-      requestAnimationFrame(drawNet);
+      netRAF=requestAnimationFrame(drawNet);
     }
-    drawNet();
+    // only animate while actually on screen and the tab is focused
+    let netRAF=0, netVisible=false;
+    const netReduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function startNet(){ if(netRAF||!netVisible||document.hidden) return; netRAF=requestAnimationFrame(drawNet); }
+    function stopNet(){ if(netRAF) cancelAnimationFrame(netRAF); netRAF=0; }
+    if(netReduced){ drawNet(); stopNet(); }
+    else{
+      new IntersectionObserver(es=>{ netVisible=es[0].isIntersecting; netVisible?startNet():stopNet(); },{threshold:0}).observe(net);
+      document.addEventListener('visibilitychange',()=>{ document.hidden?stopNet():startNet(); });
+    }
   }
 })();
 

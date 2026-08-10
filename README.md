@@ -46,11 +46,25 @@ Fix, in order:
    and shows a green DNS check.
 2. Wait for *"Certificate is being provisioned"* to clear. This usually takes
    minutes; GitHub allows up to 24 hours.
-3. If it stays pending, **remove the custom domain, save, re-add it, and save
-   again**. Provisioning does not automatically retry after a failed attempt —
-   which is what happens when the domain is set in Pages *before* DNS has
-   propagated to the GitHub IPs. Re-adding is the documented way to retrigger it.
-4. Only once the certificate is issued, tick **Enforce HTTPS**.
+3. Be patient before touching anything. Issuance and edge rollout are separate
+   steps: the certificate can already exist while the edge still serves the old
+   `*.github.io` one, so a live cert error does not by itself mean provisioning
+   failed. Check the certificate's own start date before concluding it is stuck:
+
+   ```sh
+   curl -sSv https://krishnasharma.xyz 2>&1 | grep -E 'subject:|expire date:'
+   ```
+
+   A `subject` matching the domain means it is issued and merely rolling out —
+   wait it out.
+4. Only if it is genuinely stuck (hours, with no certificate issued) **remove
+   the custom domain, save, re-add it, and save again**. Provisioning does not
+   automatically retry after a *failed* attempt — which is what happens when the
+   domain is set in Pages *before* DNS has propagated to the GitHub IPs.
+   Re-adding is the documented way to retrigger it. Do not reach for this early:
+   it discards an already-issued certificate and restarts the clock, turning a
+   rollout delay into a real outage.
+5. Only once the certificate is issued, tick **Enforce HTTPS**.
 
 Do not tick *Enforce HTTPS* while the certificate is still pending — it takes
 the site from "works over HTTP" to "unreachable over both protocols."

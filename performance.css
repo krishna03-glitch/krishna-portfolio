@@ -1,4 +1,7 @@
-/* Keep the elaborate effects, but avoid spending GPU time where they are least useful. */
+/* Keep elaborate effects but avoid spending GPU time where they are least useful. */
+#progress, .marquee-track, .orb, .cursor-aura { will-change: transform; }
+.marquee-track.paused, .orb.paused { animation-play-state: paused !important; }
+
 @media (max-width: 720px) {
   .orb { animation: none; filter: blur(36px); }
   .orb-3, .grain, .cursor-aura { display: none; }
@@ -17,8 +20,7 @@
 }
 
 @supports (content-visibility: auto) {
-  #about, #projects, #skills, #experience, #resume, #contact {
-    content-visibility: auto;
-    contain-intrinsic-size: auto 760px;
-  }
+  #maths, #pde-ml { content-visibility: auto; contain-intrinsic-size: auto 720px; }
+  #about, #skills, #experience, #resume, #contact { content-visibility: auto; contain-intrinsic-size: auto 560px; }
+  #projects { content-visibility: auto; contain-intrinsic-size: auto 920px; }
 }

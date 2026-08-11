@@ -29,8 +29,12 @@
         render.src = 'https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js';
         render.async = true;
         render.onload = () => {
-          mathRoots.forEach((root) => window.renderMathInElement(root, { delimiters }));
-          resolve();
+          const run = () => {
+            mathRoots.forEach((root) => window.renderMathInElement(root, { delimiters }));
+            resolve();
+          };
+          if ('requestIdleCallback' in window) requestIdleCallback(run, { timeout: 1200 });
+          else setTimeout(run, 80);
         };
         render.onerror = reject;
         document.head.append(render);
@@ -44,7 +48,9 @@
   const observer = new IntersectionObserver((entries) => {
     if (!entries.some((entry) => entry.isIntersecting)) return;
     observer.disconnect();
-    loadMath().catch(() => {});
+    const kick = () => loadMath().catch(() => {});
+    if ('requestIdleCallback' in window) requestIdleCallback(kick, { timeout: 1500 });
+    else setTimeout(kick, 120);
   }, { rootMargin: '350px 0px' });
 
   mathRoots.forEach((root) => observer.observe(root));

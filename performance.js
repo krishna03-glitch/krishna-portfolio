@@ -45,7 +45,7 @@
     if (!entries.some((entry) => entry.isIntersecting)) return;
     observer.disconnect();
     loadMath().catch(() => {});
-  }, { rootMargin: '900px 0px' });
+  }, { rootMargin: '350px 0px' });
 
   mathRoots.forEach((root) => observer.observe(root));
 })();

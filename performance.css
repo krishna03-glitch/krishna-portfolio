@@ -1,0 +1,24 @@
+/* Keep the elaborate effects, but avoid spending GPU time where they are least useful. */
+@media (max-width: 720px) {
+  .orb { animation: none; filter: blur(36px); }
+  .orb-3, .grain, .cursor-aura { display: none; }
+  nav, .marquee, .profile-facts { backdrop-filter: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+  .orb, .grain, .cursor-aura { display: none; }
+  nav, .marquee, .profile-facts { backdrop-filter: none; }
+}
+
+@supports (content-visibility: auto) {
+  #about, #projects, #skills, #experience, #resume, #contact {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 760px;
+  }
+}

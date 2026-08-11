@@ -1537,4 +1537,64 @@ sblBtn.textContent='✓ Gradient updated';
 setTimeout(()=>sblBtn.textContent='▶ Run gradient',900);
 });
 })();
+// Clean URLs: /pde-ml, /maths, /about, etc. keep single-page scroll but hide hash
+(() => {
+  const SECTIONS = new Set(['maths','pde-ml','about','projects','skills','experience','resume','contact','top']);
+  function scrollToId(id, smooth) {
+    const el = document.getElementById(id);
+    if (!el) return false;
+    el.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+    return true;
+  }
+  function cleanPathFor(id) { return id === 'top' ? '/' : '/' + id; }
+  function idFromPath() {
+    const p = location.pathname.replace(/^\/+|\/+$/g, '');
+    if (!p) return null;
+    return SECTIONS.has(p) && p !== 'top' ? p : null;
+  }
+  function idFromHash() {
+    const h = location.hash.replace(/^#/, '');
+    return SECTIONS.has(h) ? h : null;
+  }
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (!href) return;
+    const id = href.slice(1);
+    if (!SECTIONS.has(id)) return;
+    e.preventDefault();
+    const ok = scrollToId(id, true);
+    if (ok) {
+      const path = cleanPathFor(id);
+      if (location.pathname !== path || location.hash) history.pushState(null, '', path);
+    }
+    const nav = document.getElementById('navLinks');
+    const btn = document.getElementById('menuBtn');
+    if (nav && nav.classList.contains('open')) {
+      nav.classList.remove('open');
+      const bd = document.getElementById('navBackdrop');
+      if (bd) bd.classList.remove('open');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+  });
+  addEventListener('popstate', () => {
+    const id = idFromPath();
+    if (id) scrollToId(id, true);
+    else if (location.pathname === '/' || location.pathname === '') window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  function handleInitial() {
+    const hashId = idFromHash();
+    if (hashId) {
+      history.replaceState(null, '', cleanPathFor(hashId));
+      setTimeout(() => scrollToId(hashId, false), 30);
+      return;
+    }
+    const pathId = idFromPath();
+    if (pathId) setTimeout(() => scrollToId(pathId, false), 30);
+  }
+  if (document.readyState !== 'loading') handleInitial();
+  else addEventListener('DOMContentLoaded', handleInitial);
+})();
 if(matchMedia('(prefers-reduced-motion: reduce)').matches){ aura.style.display='none'; }</script></body></html>

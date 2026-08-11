@@ -45,5 +45,9 @@ RewriteRule ^(.*)$ https://krishnasharma.xyz/$1 [L,R=301]
   </FilesMatch>
 </IfModule>
 
-# Single-page fallback not needed - single file site
+# Clean URLs for sections: /pde-ml, /maths, etc. -> serve index.html but keep clean path
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(maths|pde-ml|about|projects|skills|experience|resume|contact)/?$ /index.html [L]
+
 DirectoryIndex index.html

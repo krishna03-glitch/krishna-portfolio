@@ -89,6 +89,16 @@
       ]
     }
   ],
+  "rewrites": [
+    {
+      "source": "/(maths|pde-ml|about|projects|skills|experience|resume|contact)",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/(maths|pde-ml|about|projects|skills|experience|resume|contact)/",
+      "destination": "/index.html"
+    }
+  ],
   "redirects": [
     {
       "source": "/(.*)",

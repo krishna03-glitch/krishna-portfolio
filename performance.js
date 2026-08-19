@@ -1,5 +1,5 @@
 (() => {
-  const mathRoots = ['maths', 'pde-ml']
+  const mathRoots = ['maths', 'pde-ml', 'graph-theory']
     .map((id) => document.getElementById(id))
     .filter(Boolean);
 

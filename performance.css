@@ -23,4 +23,11 @@
   #maths, #pde-ml { content-visibility: auto; contain-intrinsic-size: auto 720px; }
   #about, #skills, #experience, #resume, #contact { content-visibility: auto; contain-intrinsic-size: auto 560px; }
   #projects { content-visibility: auto; contain-intrinsic-size: auto 920px; }
+  #graph-theory { content-visibility: auto; contain-intrinsic-size: auto 800px; }
+}
+/* Defer off-screen images/decoding hint */
+img[loading="lazy"]{content-visibility:auto}
+/* Reduce blur cost on low-power devices */
+@media (max-width: 720px), (prefers-reduced-motion: reduce) {
+  #neuralBg { display:none !important; }
 }

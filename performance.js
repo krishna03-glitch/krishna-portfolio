@@ -48,6 +48,11 @@
   const observer = new IntersectionObserver((entries) => {
     if (!entries.some((entry) => entry.isIntersecting)) return;
     observer.disconnect();
+    const preconnect = document.createElement('link');
+    preconnect.rel = 'preconnect';
+    preconnect.href = 'https://cdn.jsdelivr.net';
+    preconnect.crossOrigin = 'anonymous';
+    document.head.append(preconnect);
     const kick = () => loadMath().catch(() => {});
     if ('requestIdleCallback' in window) requestIdleCallback(kick, { timeout: 1500 });
     else setTimeout(kick, 120);

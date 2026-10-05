@@ -1649,14 +1649,14 @@ setTimeout(()=>sblBtn.textContent='▶ Run gradient',900);
   else addEventListener('DOMContentLoaded', handleInitial);
 })();
 if(matchMedia('(prefers-reduced-motion: reduce)').matches){ aura.style.display='none'; }</script><script>(()=>{
-// Defer heavy canvas until idle + visible — saves TBT on first paint
+// Defer the decorative canvas until idle and skip it when CSS hides it.
 function initNeuralBg(){
 const canvas=document.getElementById('neuralBg');
-if(!canvas||!canvas.getContext)return;
+if(!canvas||!canvas.getContext||getComputedStyle(canvas).display==='none')return;
 const ctx=canvas.getContext('2d');
 const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const palette=['57,255,20','0,255,255','188,19,254'];
-let w,h,dpr,nodes,raf,running=true;
+let w,h,dpr,nodes,raf=0,frameTimer=0,running=!document.hidden;
 function resize(){
   dpr=Math.min(devicePixelRatio||1,2);
   w=innerWidth;h=innerHeight;
@@ -1670,6 +1670,8 @@ function resize(){
   }));
 }
 function step(){
+  raf=0;
+  if(!running)return;
   ctx.clearRect(0,0,w,h);
   const linkDist=Math.min(150,w/6);
   if(!reduceMotion){
@@ -1697,32 +1699,23 @@ function step(){
     ctx.arc(n.x,n.y,1.6,0,Math.PI*2);
     ctx.fill();
   }
-  if(!reduceMotion&&running)raf=requestAnimationFrame(step);
+  if(!reduceMotion&&running)frameTimer=setTimeout(()=>{frameTimer=0;if(running)raf=requestAnimationFrame(step);},1000/30);
 }
+function start(){if(!reduceMotion&&running&&!raf&&!frameTimer)raf=requestAnimationFrame(step);}
+function stop(){if(raf){cancelAnimationFrame(raf);raf=0;}if(frameTimer){clearTimeout(frameTimer);frameTimer=0;}}
 resize();
-step();
+if(reduceMotion)step();else start();
 addEventListener('resize',()=>{resize();if(reduceMotion)step();},{passive:true});
 document.addEventListener('visibilitychange',()=>{
   running=!document.hidden;
-  if(running&&!reduceMotion)raf=requestAnimationFrame(step);
-  else cancelAnimationFrame(raf);
+  if(running){if(reduceMotion)step();else start();}
+  else stop();
 });
 }
 function scheduleNeuralBg(){
   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){initNeuralBg();return;}
   if('requestIdleCallback' in window) requestIdleCallback(initNeuralBg,{timeout:2000});
   else setTimeout(initNeuralBg,800);
-  // Pause when off-screen via IntersectionObserver
-  try{
-    var c=document.getElementById('neuralBg');
-    if(c&&'IntersectionObserver' in window){
-      new IntersectionObserver(function(es){
-        var vis=es[0].isIntersecting;
-        running=vis && !document.hidden;
-        if(vis && !reduceMotion) requestAnimationFrame(step);
-      },{threshold:0}).observe(c);
-    }
-  }catch(e){}
 }
 if(document.readyState==='complete' || document.readyState==='interactive') scheduleNeuralBg();
 else addEventListener('DOMContentLoaded',scheduleNeuralBg);

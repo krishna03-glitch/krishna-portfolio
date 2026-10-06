@@ -1658,11 +1658,12 @@ const reduceMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
 const palette=['57,255,20','0,255,255','188,19,254'];
 let w,h,dpr,nodes,raf=0,frameTimer=0,running=!document.hidden;
 function resize(){
-  dpr=Math.min(devicePixelRatio||1,2);
+  // This decorative canvas does not need a full 2x backing store on Retina screens.
+  dpr=Math.min(devicePixelRatio||1,1.5);
   w=innerWidth;h=innerHeight;
   canvas.width=Math.round(w*dpr);canvas.height=Math.round(h*dpr);
   ctx.setTransform(dpr,0,0,dpr,0,0);
-  const count=Math.max(24,Math.min(64,Math.round((w*h)/26000)));
+  const count=Math.max(20,Math.min(56,Math.round((w*h)/32000)));
   nodes=Array.from({length:count},()=>({
     x:Math.random()*w,y:Math.random()*h,
     vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,
@@ -1674,6 +1675,7 @@ function step(){
   if(!running)return;
   ctx.clearRect(0,0,w,h);
   const linkDist=Math.min(150,w/6);
+  const linkDistSq=linkDist*linkDist;
   if(!reduceMotion){
     for(const n of nodes){
       n.x+=n.vx;n.y+=n.vy;
@@ -1685,8 +1687,9 @@ function step(){
     for(let j=i+1;j<nodes.length;j++){
       const a=nodes[i],b=nodes[j];
       const dx=a.x-b.x,dy=a.y-b.y;
-      const dist=Math.hypot(dx,dy);
-      if(dist<linkDist){
+      const distSq=dx*dx+dy*dy;
+      if(distSq<linkDistSq){
+        const dist=Math.sqrt(distSq);
         ctx.strokeStyle=`rgba(57,255,20,${(1-dist/linkDist)*.16})`;
         ctx.lineWidth=1;
         ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
@@ -1699,7 +1702,7 @@ function step(){
     ctx.arc(n.x,n.y,1.6,0,Math.PI*2);
     ctx.fill();
   }
-  if(!reduceMotion&&running)frameTimer=setTimeout(()=>{frameTimer=0;if(running)raf=requestAnimationFrame(step);},1000/30);
+  if(!reduceMotion&&running)frameTimer=setTimeout(()=>{frameTimer=0;if(running)raf=requestAnimationFrame(step);},1000/24);
 }
 function start(){if(!reduceMotion&&running&&!raf&&!frameTimer)raf=requestAnimationFrame(step);}
 function stop(){if(raf){cancelAnimationFrame(raf);raf=0;}if(frameTimer){clearTimeout(frameTimer);frameTimer=0;}}

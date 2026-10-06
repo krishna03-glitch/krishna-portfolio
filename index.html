@@ -763,6 +763,21 @@ html:[
 let active='softmax';
 let raf=null, idx=0, charSpeed=14;
 let fullText='';
+const codeWindow=document.getElementById('mlCodeWindow');
+let codeVisible=!codeWindow;
+if(codeWindow&&'IntersectionObserver' in window){
+codeVisible=false;
+new IntersectionObserver(entries=>{
+codeVisible=entries.some(entry=>entry.isIntersecting);
+startTyping();
+},{rootMargin:'80px 0px'}).observe(codeWindow);
+}else{
+codeVisible=true;
+}
+document.addEventListener('visibilitychange',()=>{
+if(document.hidden){if(raf){cancelAnimationFrame(raf);raf=null;}}
+else if(codeVisible) startTyping();
+});
 function setActive(key){
 active=key;
 tabsEls.forEach(b=>{ const on=b.dataset.code===key; b.classList.toggle('active',on); b.setAttribute('aria-selected',on); });
@@ -778,11 +793,12 @@ gutter.innerHTML=Array.from({length:lines},(_,i)=>`<span>${String(i+1).padStart(
 }
 function startTyping(){
 if(raf) cancelAnimationFrame(raf);
+raf=null;
 idx=0;
 pre.innerHTML='';
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
-if(reduced){ pre.innerHTML=fullText + '<span class="cursor"></span>'; const lines=fullText.split('\n').length; renderGutter(lines); updateTickers(1); return; }
 const lines = fullText.split('\n').length; renderGutter(lines);
+if(reduced||!codeVisible||document.hidden){ pre.innerHTML=fullText + '<span class="cursor" style="opacity:.35"></span>'; updateTickers(1); return; }
 let last=performance.now();
 function step(now){
 if(now-last < charSpeed){ raf=requestAnimationFrame(step); return; }
@@ -813,7 +829,7 @@ tabsEls.forEach(b=> b.addEventListener('click', ()=> setActive(b.dataset.code)))
 runBtn?.addEventListener('click', ()=> startTyping());
 setActive('softmax');
 let cycIdx=0; const cycKeys=['softmax','mnist','sentiment','transformer'];
-setInterval(()=>{ if(document.hidden) return; cycIdx=(cycIdx+1)%cycKeys.length; setActive(cycKeys[cycIdx]); }, 14000);
+setInterval(()=>{ if(document.hidden||!codeVisible) return; cycIdx=(cycIdx+1)%cycKeys.length; setActive(cycKeys[cycIdx]); }, 14000);
 const net=document.getElementById('miniNetCanvas');
 if(net){
 const ctx=net.getContext('2d');

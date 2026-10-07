@@ -1,4 +1,15 @@
 (() => {
+  const kaggleProjectLinks = {
+    'Handwritten Digit Classifier': 'https://www.kaggle.com/code/ks76479/handwritten-digit-classifier',
+    'Sentiment Analysis System': 'https://www.kaggle.com/code/ks76479/sentiment-analysis-system',
+  };
+
+  document.querySelectorAll('.project').forEach((project) => {
+    const title = project.querySelector('h3')?.textContent?.trim();
+    const link = project.querySelector('.project-link');
+    if (title && link && kaggleProjectLinks[title]) link.href = kaggleProjectLinks[title];
+  });
+
   const mathRoots = ['maths', 'pde-ml', 'graph-theory']
     .map((id) => document.getElementById(id))
     .filter(Boolean);
